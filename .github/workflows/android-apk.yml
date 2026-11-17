@@ -1,0 +1,30 @@
+name: android-apk
+
+# Build manual: Actions > android-apk > Run workflow
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build APK (Docker)
+        env:
+          APP_VERSION: memlog-${{ github.run_number }}
+        run: |
+          set -euo pipefail
+          docker version
+          chmod +x build/build_android.sh
+          ./build/build_android.sh
+          ls -lah bin/ || true
+          test -f bin/ikemen-go.apk
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: ikemen-go-apk
+          path: bin/ikemen-go.apk
+          if-no-files-found: error
