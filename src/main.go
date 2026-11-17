@@ -153,6 +153,7 @@ func realMain() {
 	// Create directories for ALL platforms
 	os.MkdirAll(filepath.Join(sys.baseDir, "save/replays"), permission)
 	os.MkdirAll(filepath.Join(sys.baseDir, "save/logs"), permission)
+	logMem("engine iniciado")
 
 	processCommandLine()
 

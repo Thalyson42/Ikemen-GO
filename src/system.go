@@ -2126,6 +2126,7 @@ func (s *System) loadTime(start time.Time, str string, shell, console bool) {
 	if console {
 		s.appendToConsole(str)
 	}
+	logMem("FIM " + str)
 }
 
 // Update Z scale
@@ -6396,6 +6397,7 @@ func (l *Loader) loadCharacter(pn int, attached bool) int {
 		}
 	}
 
+	logMem("INICIO char: " + cdef)
 	var p *Char
 	sys.workingChar = p // This should help compiler and bytecode stay consistent
 
@@ -6707,6 +6709,7 @@ func (l *Loader) loadStage() bool {
 		if sdefOW != "" {
 			def = sdefOW
 		}
+		logMem("INICIO stage: " + def)
 		if sys.stage != nil && sys.stage.def == def && sys.stage.mainstage && !sys.stage.reload {
 			tstr = fmt.Sprintf("Cached stage loaded: %v", def)
 			return true
